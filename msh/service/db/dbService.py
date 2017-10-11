@@ -77,6 +77,11 @@ class DBService:
         self.conn.execute('DELETE FROM SSHList WHERE host=\'%s\''%host)
         self.conn.commit()
 
+    def update_ssh_key(self, host, username, password):
+        sql = 'UPDATE SSHLIST SET name=\'%s\' , passwd=\'%s\' WHERE host=\'%s\'' % (username, password, host)
+        self.conn.execute(sql)
+        self.conn.commit()
+
     def get_ssh_key(self, host):
         sql = 'SELECT id,name,passwd,host,timestamp from SSHList WHERE host = \'%s\''%host
         cursor = self.conn.execute(sql)

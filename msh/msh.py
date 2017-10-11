@@ -94,7 +94,17 @@ def main():
                 else:
                     api.login(ssh_conn.get('host'), ssh_conn.get('name'), ssh_conn.get('passwd'))
             if ifupdate:
-                pass
+                ssh_conns = api.list_ssh_connects()
+                # print ssh_conns
+                output.set_values(ssh_conns)
+                sys.stdout.write(output.show())
+                sys.stdout.write('\n')
+                if len(ssh_conns) > 0:
+                    ssh_conn = output.select_to_update()
+                    username = inputClient.input_username()
+                    password = inputClient.input_password()
+                    api.update_ssh_connect(ssh_conn.get('host'), username, password)
+                    sys.stdout.write('更新成功!\n')
             if del_host:
                 ssh_conn = api.get_ssh_connect(del_host)
                 if ssh_conn is None:

@@ -96,6 +96,13 @@ class OutputClient:
         index = int(index)
         return self.values_dict[index - 1]
 
+    def select_to_update(self):
+        index = raw_input("请选择更新的主机(index): ")
+        while not self._is_num(index):
+            index = raw_input("输入有误,请选择更新的主机(index): ")
+        index = int(index)
+        return self.values_dict[index - 1]
+
     def _is_num(self,index):
         try:
             index = int(index)

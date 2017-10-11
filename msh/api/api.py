@@ -17,6 +17,9 @@ class Api:
     def del_ssh_connect(self, host):
         self.db.delete_ssh_key(host)
 
+    def update_ssh_connect(self, host, user, name):
+        self.db.update_ssh_key(host, user, name)
+
     def list_ssh_connects(self):
         return self.db.get_all_ssh_list()
 

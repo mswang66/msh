@@ -29,12 +29,12 @@ class PexpectClient:
         self.child = pexpect.spawn('ssh %s@%s'%(self.username, self.host))
 
     def check_ssh_process(self):
-        self.child.expect('password|yes|[#\$]')
+        self.child.expect('password:|yes|[#\$]')
         cafter = self.child.after
         # print cafter
         if cafter == "yes":
             return SSHSchedule.get('yes')
-        elif cafter == "password":
+        elif cafter == "password:":
             return SSHSchedule.get("password")
         else:
             return SSHSchedule.get("other")
@@ -48,7 +48,7 @@ class PexpectClient:
             # print "Login with password"
             self.login_with_password()
         else:
-            pass
+            sys.stdout.write(self.child.before + self.child.after)
 
     def login_with_yes(self):
         self.child.sendline(YES)
@@ -64,6 +64,7 @@ class PexpectClient:
             raise PasswordErrorException
         else:
             sys.stdout.write(self.child.before + self.child.after)
+            # sys.stdout.write(self.child.after)
 
     def interact(self):
         # print self.child.getwinsize()
