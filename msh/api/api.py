@@ -4,6 +4,7 @@ from msh.service.output.pexpectInput import PexpectClient
 from msh.constants.PasswordErrorException import PasswordErrorException
 import time
 
+from msh.service.color import UseStyle
 
 class Api:
 
@@ -37,6 +38,9 @@ class Api:
             self.pexpClient.set_param(host, user, password)
             self.pexpClient.connect()
             try:
+                import sys
+                sys.stdout.write(UseStyle("Prepare for login ==> %s@%s"%(user, host), mode = 'bold',fore='black',back='cyan'))
+                sys.stdout.write('\n');
                 self.pexpClient.login()
                 self.pexpClient.interact()
             except PasswordErrorException,e:

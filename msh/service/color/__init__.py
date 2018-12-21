@@ -95,7 +95,7 @@ def TestColor( ):
 
     print "测试显示模式"
     print UseStyle('高亮',   mode = 'bold'),
-    print UseStyle('下划线', mode = 'underline'),
+    print UseStyle('下划线', mode = 'underline',fore='cyan',back='yellow'),
     print UseStyle('闪烁',   mode = 'blink'),
     print UseStyle('反白',   mode = 'invert'),
     print UseStyle('不可见', mode = 'hide')
